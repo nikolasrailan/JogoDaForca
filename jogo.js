@@ -87,7 +87,17 @@ function cadastrarPalavra() {
 }
 
 function sortearPalavra() {
-    
+    const i = Math.floor(Math.random() * palavras[jogo.dificuldade].length);
+
+    const palavras = palavra = palavras[jogo.dificuldade][i].palavra;
+    const dica = palavras[jogo.dificuldade][i].dica;
+
+    jogo.definirPalavra(palavra, dica);
+
+    console.log(jogo.palavra.original);
+    console.log(jogo.palavra.dica);
+
+    return jogo.palavra.original;
 }
 
 function mostrarPalavra() {
