@@ -101,8 +101,16 @@ function sortearPalavra() {
 }
 
 function mostrarPalavra() {
+    elementos.dica.textContent = jogo.palavra.dica;
 
-}
+    elementos.palavra.textContent = '';
+
+    for(let i = 0; i < jogo.acertos.lenght; i++) {
+        const letra = jogo.acertos[i].toUpperCase();
+
+        elementos.palavra.innerHTML += `<div class="letra-${i}">${letra}</div>`;
+    }
+}   
 
 function novoJogo() {
     jogo = {
