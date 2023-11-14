@@ -67,7 +67,9 @@ function criarTeclado() {
 }
 
 function mostrarErro(){
+    const parte = elementos.boneco[5-jogo.chances];
 
+    parte.classList.remove('escondido');
 }
 
 function mostrarMensagem(vitoria) {
@@ -89,7 +91,7 @@ function cadastrarPalavra() {
 function sortearPalavra() {
     const i = Math.floor(Math.random() * palavras[jogo.dificuldade].length);
 
-    const palavras = palavra = palavras[jogo.dificuldade][i].palavra;
+    const palavra = palavras[jogo.dificuldade][i].palavra;
     const dica = palavras[jogo.dificuldade][i].dica;
 
     jogo.definirPalavra(palavra, dica);
@@ -132,7 +134,7 @@ function novoJogo() {
             this.palavra.semAcentos = this.palavra.original.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
             this.palavra.dica = dica;
 
-            for( let i=0; i < this.palavra.tamanho.length; i++ ){
+            for( let i=0; i < this.palavra.tamanho; i++ ){
                 this.acertos += ' ';
             }
         },
@@ -204,8 +206,19 @@ function selecionarLetra(letra){
 }
 
 function iniciarJogo(dificuldade) {
-    
+    jogo.dificuldade = dificuldade;
+
+    elementos.telaInicial.style.display = 'none';
+    elementos.telaJogo.style.display = 'flex';
+
+    jogo.emAndamento = true;
+
+    sortearPalavra();
+
+    mostrarPalavra();
 }
+
+elementos.botoes.facil.addEventListener('click', () => iniciarJogo('facil'));
 
 function substituirCaractere(str, indice, novoCaractere) {
     const parteAntes = str.substring(0, indice);
