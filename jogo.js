@@ -47,7 +47,8 @@ const palavras = {
 }
 
 function criarTeclado() {
-    const letras = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','t','u','v','w','x','y','z'];
+    //const letras = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','t','u','v','w','x','y','z'];
+    const letras = ['q','w','e','r','t','y','u','i','o','p','a','s','d','f','g','h','j','k','l','z','x','c','v','b','n', 'm'];
 
     elementos.teclado.textContent = '';
 
@@ -73,7 +74,15 @@ function mostrarErro(){
 }
 
 function mostrarMensagem(vitoria) {
+    const mensagem = vitoria ? '<p>Parabéns!</p><p>Você GANHOU</p>' : '<p>que pena!</p><p>Você PERDEU</p>';
 
+    elementos.textoMensagem.innerHTML = mensagem;
+
+    elementos.telaMensagem.style.display = 'flex';
+
+    elementos.telaMensagem.classList.add(`mensagem-${vitoria ? 'vitoria' : 'derrota'}`);
+
+    jogo.emAndamento = false;
 }
 
 function abrirTelaCadastroPalavra() {
