@@ -26,12 +26,12 @@ const elementos = {
         dica: document.getElementById('dica'),
     },
     boneco: [
-        querySelector('.boneco-cabeca'),
-        querySelector('.boneco-corpo'),
-        querySelector('.boneco-braco-esquerdo'),
-        querySelector('.boneco-braco-direito'),
-        querySelector('.boneco-perna-direita'),
-        querySelector('.boneco-perna-esquerda'),
+        document.querySelector('.boneco-cabeca'),
+        document.querySelector('.boneco-corpo'),
+        document.querySelector('.boneco-braco-esquerdo'),
+        document.querySelector('.boneco-braco-direito'),
+        document.querySelector('.boneco-perna-direita'),
+        document.querySelector('.boneco-perna-esquerda'),
     ],
 }
 
@@ -47,7 +47,23 @@ const palavras = {
 }
 
 function criarTeclado() {
-    
+    const letras = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','t','u','v','w','x','y','z'];
+
+    elementos.teclado.textContent = '';
+
+    for(const letra of letras) {
+        const button = document.createElement('button');
+
+        button.appendChild(document.createTextNode(letra.toUpperCase()));
+
+        button.classList.add(`botao-${letra}`);
+
+        elementos.teclado.appendChild(button);
+
+        button.addEventListener('click', () => {
+            selecionarLetra(letra);
+        });
+    }
 }
 
 function mostrarErro(){
@@ -144,8 +160,29 @@ function novoJogo() {
     criarTeclado();
 }
 
-function selecionarLetra(letra){
+novoJogo();
 
+function selecionarLetra(letra){
+    if(!jogo.jogadas.includes(letra) && !jogo.acabou()) {
+        const acertou = jogo.jogar(letra);
+
+        jogo.jogadas.push(letra);
+
+        const button = document.querySelector(`.botao-${letra}`);
+        button.classList.add(acertou ? 'certo' : 'errado');
+
+        mostrarPalavra();
+
+        if(!acertou) {
+            mostrarErro();
+        }
+
+        if(jogo.ganhou()) {
+            mostrarMensagem(true);
+        }else if(jogo.perdeu()) {
+            mostrarMensagem(false);
+        }
+    }
 }
 
 function iniciarJogo(dificuldade) {
@@ -158,5 +195,3 @@ function substituirCaractere(str, indice, novoCaractere) {
     const novaString = parteAntes + novoCaractere + parteDepois;
     return novaString;
 }
-
-novoJogo();
