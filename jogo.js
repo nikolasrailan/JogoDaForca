@@ -228,6 +228,8 @@ function iniciarJogo(dificuldade) {
 }
 
 elementos.botoes.facil.addEventListener('click', () => iniciarJogo('facil'));
+elementos.botoes.reiniciar.addEventListener('click', () => novoJogo());
+elementos.botoes.voltar.addEventListener('click', () => voltarInicio());
 
 function substituirCaractere(str, indice, novoCaractere) {
     const parteAntes = str.substring(0, indice);
@@ -235,3 +237,4 @@ function substituirCaractere(str, indice, novoCaractere) {
     const novaString = parteAntes + novoCaractere + parteDepois;
     return novaString;
 }
+
